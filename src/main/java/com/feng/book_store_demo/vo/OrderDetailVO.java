@@ -11,7 +11,6 @@ public class OrderDetailVO {
     private String tel;
     private String address;
     private Integer num;
-    private Integer bookQuantity;
     private String bookName;
     private String specs;
     private String price;

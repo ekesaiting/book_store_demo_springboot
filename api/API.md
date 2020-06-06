@@ -315,7 +315,6 @@ orderId: "1591444530567676377"
 		"tel": "17777777777",
 		"address": "北京市北京市东城区123街123号",
 		"num": 1,
-		"bookQuantity": null,
 		"bookName": "Python编程 从入门到实践",
 		"specs": "【单件】Python编程 从入门到实践",
 		"price": "65.00",
