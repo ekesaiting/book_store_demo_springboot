@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -53,6 +54,15 @@ public class OrderController {
         OrderDetailVO orderDetailVO = orderService.getOrderDetailByOrderId(orderId);
         return new ResultVO<>(ResultEnum.SUCCESS,orderDetailVO);
     }
-
+    @GetMapping("/orderList")
+    public ResultVO<List<OrderDetailVO>> orderList(){
+        List<OrderDetailVO> detailVOS = orderService.orderList();
+        return new ResultVO<>(ResultEnum.SUCCESS,detailVOS);
+    }
+    @DeleteMapping("/cancel/{orderId}")
+    public ResultVO<String> delete(@PathVariable("orderId") String id ){
+        orderService.cancel(id);
+        return new ResultVO<>(ResultEnum.DELETE,null);
+    }
 
 }

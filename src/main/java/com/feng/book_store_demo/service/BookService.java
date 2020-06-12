@@ -16,4 +16,5 @@ public interface BookService {
     List<BookInfoVO> getBookByCategoryType(Integer type);
     BookSpecsVO getSpecsByBookId(Integer id);
     void subStock(Integer specsId,Integer quantity);
+    void addStock(Integer specsId,Integer quantity);
 }

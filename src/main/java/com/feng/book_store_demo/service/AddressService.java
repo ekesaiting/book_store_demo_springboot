@@ -12,4 +12,5 @@ import java.util.List;
 public interface AddressService {
     List<AddressVO> findAll();
     void saveOrUpdate(AddressForm addressForm);
+    void delete(Integer id);
 }

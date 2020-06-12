@@ -35,4 +35,9 @@ public class AddressController {
         addressService.saveOrUpdate(addressForm);
         return new ResultVO<>(ResultEnum.UPDATE,null);
     }
+    @DeleteMapping("/delete/{id}")
+    public ResultVO<String> delete(@PathVariable("id") Integer id){
+        addressService.delete(id);
+        return new ResultVO<>(ResultEnum.DELETE,null);
+    }
 }

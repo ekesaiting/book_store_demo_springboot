@@ -151,4 +151,16 @@ public class BookServiceImpl implements BookService {
         bookInfo.setBookStock(result);
         bookRepository.save(bookInfo);
     }
+
+    @Override
+    public void addStock(Integer specsId, Integer quantity) {
+        BookSpecs bookSpecs = specsRepository.findById(specsId).get();
+        BookInfo bookInfo = bookRepository.findById(bookSpecs.getBookId()).get();
+        int result = bookSpecs.getSpecsStock() + quantity;
+        bookSpecs.setSpecsStock(result);
+        specsRepository.save(bookSpecs);
+        result = bookInfo.getBookStock() + quantity;
+        bookInfo.setBookStock(result);
+        bookRepository.save(bookInfo);
+    }
 }

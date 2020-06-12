@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @Author shf
@@ -112,5 +114,27 @@ public class OrderServiceImpl  implements OrderService {
             log.error("【支付订单】订单已支付,orderMaster={}",orderMaster);
         }
         return orderId;
+    }
+
+    @Override
+    public List<OrderDetailVO> orderList() {
+        List<OrderMaster> orders = orderMasterRepository.findAll();
+        return orders.stream().map(o -> getOrderDetailByOrderId(o.getOrderId())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void cancel(String id) {
+        Optional<OrderMaster> orderMasterOptional = orderMasterRepository.findById(id);
+        if (!orderMasterOptional.isPresent()){
+            log.error("【订单异常】订单不存在");
+            throw new OrderException(OrderEnum.ORDER_NOT_EXIST);
+        }
+        OrderMaster order=orderMasterOptional.get();
+        if (order.getPayStatus().equals(OrderEnum.PAID.getCode())){
+            log.error("【订单异常】订单已支付，不能取消");
+            throw new OrderException(OrderEnum.ORDER_CANT_CANCEL);
+        }
+        bookService.addStock(order.getSpecsId(),order.getBookQuantity());
+        orderMasterRepository.deleteById(id);
     }
 }
